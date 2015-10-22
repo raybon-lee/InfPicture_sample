@@ -287,6 +287,8 @@ InfPictureBeenClicked:(IndexOfImageClickBlock)block{
     _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight)];
     _scrollView.delegate = self;
     _scrollView.pagingEnabled=YES;
+    _scrollView.showsHorizontalScrollIndicator=NO;
+    _scrollView.showsVerticalScrollIndicator=NO;
     _scrollView.contentSize = CGSizeMake(viewWidth*3, viewHeight);
     _scrollView.contentOffset = CGPointMake(viewWidth, 0);
 
@@ -300,7 +302,6 @@ InfPictureBeenClicked:(IndexOfImageClickBlock)block{
 
     _thirdImageView = [[UIImageView alloc]initWithFrame:CGRectMake(2*viewWidth, 0, viewWidth, viewHeight)];
     [_scrollView addSubview:_thirdImageView];
-    
 }
 
 #pragma mark
