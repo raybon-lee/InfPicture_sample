@@ -214,7 +214,7 @@ InfPictureBeenClicked:(IndexOfImageClickBlock)block{
             andIndex:(NSInteger)index{
     
     id objectInArray = imageArray[index];
-    
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
     if([objectInArray isKindOfClass:[NSString class]] ){
         imageView.image = [UIImage imageNamed:objectInArray];
     }
