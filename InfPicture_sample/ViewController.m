@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "InfPicture.h"
-@interface ViewController ()
+@interface ViewController ()<InfPictureDelegate>
 
 @end
 
@@ -17,22 +17,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIImage* imageA = [UIImage imageNamed:@"3.jpg"];
-    NSArray * testArray = @[@"1.jpg",[NSURL URLWithString:@"http://i13.tietuku.com/503e7a9a4e1b0017.jpg"],imageA];
-    
 
+    NSArray * testArray = @[@"1.jpg",@"2.jpg",@"3.jpg"];
+    
+    
     [_infView setImageArray:[[NSMutableArray alloc]initWithArray:testArray]
               andImageIndex:0
              hasPageControl:YES
          openAutoCycleImage:YES
                timeInterval:5
-      InfPictureBeenClicked:^(NSInteger index) {
-          NSLog(@"%ld",index);
-
-      }];
+      InfPictureBeenClicked:nil];
+    _infView.delegate=self;
 //    [_infView openAutoCycleImage:YES];
 }
 
+- (void)InfPicture:(InfPicture *)infPicture andImageIndex:(NSInteger)index{
+    NSLog(@"%ld",index);
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

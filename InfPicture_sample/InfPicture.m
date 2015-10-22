@@ -136,7 +136,13 @@ InfPictureBeenClicked:(IndexOfImageClickBlock)block{
  *  响应手势
  */
 - (void)handleTapScroll{
-    _indexOfImageClickBlock(_imageIndex);
+    if(_indexOfImageClickBlock){
+        _indexOfImageClickBlock(_imageIndex);
+    }
+    if(self.delegate&&[self.delegate respondsToSelector:@selector(InfPicture:andImageIndex:)]){
+        [self.delegate InfPicture:self andImageIndex:_imageIndex];
+    }
+    
 }
 
 /**
@@ -283,19 +289,16 @@ InfPictureBeenClicked:(IndexOfImageClickBlock)block{
     _scrollView.pagingEnabled=YES;
     _scrollView.contentSize = CGSizeMake(viewWidth*3, viewHeight);
     _scrollView.contentOffset = CGPointMake(viewWidth, 0);
-    _scrollView.backgroundColor = [UIColor grayColor];
+
     [self addSubview:_scrollView];
     
     _firstImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight)];
-    _firstImageView.backgroundColor = [UIColor redColor];
     [_scrollView addSubview:_firstImageView];
 
     _middleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(viewWidth, 0, viewWidth, viewHeight)];
-    _middleImageView.backgroundColor = [UIColor yellowColor];
     [_scrollView addSubview:_middleImageView];
 
     _thirdImageView = [[UIImageView alloc]initWithFrame:CGRectMake(2*viewWidth, 0, viewWidth, viewHeight)];
-    _thirdImageView.backgroundColor = [UIColor purpleColor];
     [_scrollView addSubview:_thirdImageView];
     
 }
@@ -311,7 +314,6 @@ InfPictureBeenClicked:(IndexOfImageClickBlock)block{
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
 
     CGFloat offset = scrollView.contentOffset.x;
-    NSLog(@"%f",offset);
     
     if(offset >= 2*viewWidth){
         _scrollView.contentOffset = CGPointMake(offset-viewWidth, 0);

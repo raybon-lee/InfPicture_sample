@@ -5,8 +5,16 @@
 //  Created by ihuzhou on 15/10/20.
 //  Copyright © 2015年 ihuzhou. All rights reserved.
 //
-
 #import <UIKit/UIKit.h>
+@class InfPicture;
+/**
+ *  返回图片序列的代理
+ */
+@protocol InfPictureDelegate <NSObject>
+@optional
+- (void)InfPicture:(InfPicture*)infPicture andImageIndex:(NSInteger)index;
+@end
+
 typedef void (^IndexOfImageClickBlock)(NSInteger index);
 @interface InfPicture : UIView
 
@@ -14,7 +22,7 @@ typedef void (^IndexOfImageClickBlock)(NSInteger index);
  *  返回图片序列block
  */
 @property (nonatomic,copy) IndexOfImageClickBlock indexOfImageClickBlock;
-
+@property (nonatomic,weak) id<InfPictureDelegate> delegate;
 
 /**
  *  使用storyboard或者默认构造器没有选择初始化方法。所调用的配置图片方法
